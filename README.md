@@ -1,7 +1,7 @@
-just-dice.com
-=============
+just-dice.com Martingale
+========================
 
-Just-dice.com martingale chrome extension
+martingale chrome extension for just-dice.com
 
 This is a chrome extension that creates the ability to use the [martingale betting strategy](http://en.wikipedia.org/wiki/Martingale_(betting_system\)) directly from the browser.
 
