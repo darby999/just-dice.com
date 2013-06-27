@@ -1,0 +1,19 @@
+{
+  "manifest_version": 2,
+
+  "name": "Just-dice.com martingale",
+  "description": "Martingale extension for just-dice.com.",
+  "version": "1.0",
+
+  "permissions": [
+    "tabs","https://just-dice.com/*"
+  ],
+  "icons": { "128": "dice.jpeg" },
+ "content_scripts": [
+    {
+      "matches": ["https://just-dice.com/*"],
+      "js": ["jquery.min.js","martingale.js"],
+      "run_at": "document_end"
+    }
+  ]
+}
