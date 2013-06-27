@@ -1,3 +1,14 @@
+/***********************************************
+ Martingale betting strategy for just-dice.com
+ chrome extension
+
+ You are free to copy distribute and do whatever you
+ like to this software...
+
+ if you find it useful tips to 1BZiXP6EoLgm3LjnExVQSSB4c7UbUqRVPf
+************************************************/
+
+
 var timer;
 var bal;
 var bet;
@@ -63,12 +74,6 @@ function martingale()
   
 }
 
-function bet() 
-{
-  start_bet =  $("#pct_bet").val();
-  $("#a_hi").trigger('click');
-}
-
 function create_ui() {
 
   var $container = $('<div class="container"/>');
@@ -84,7 +89,6 @@ function create_ui() {
 	running = true; 
   start_bet =  $("#pct_bet").val();
   $("#a_hi").trigger('click');
-//	bet(); 
   });
   $run_div.append($run);
 
@@ -194,7 +198,6 @@ $(document).ready( function() {
 	running = true;	
         start_bet =  $("#pct_bet").val();
         $("#a_hi").trigger('click');
-	//bet();
     }
 
     $(document).keydown(function(e)
