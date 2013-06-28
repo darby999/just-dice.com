@@ -74,6 +74,45 @@ function martingale()
   
 }
 
+function ping_user() {
+
+  var log = $(".chatlog");
+  log.data('oldVal',log.html());
+  log.data('length',0);
+  setInterval(function() { 
+  	if (log.data('oldVal') != log.html()) {
+          var new_str = log.html();
+          var arr = new Array();
+          arr = new_str.split('<br>');
+
+          var line = arr[arr.length - 2];
+          var line_items = line.split(' ');
+
+          var username = $('#login span:first-child').text();
+          //console.log('username:' + username);
+          var pos = line_items.indexOf(username,3);
+          if (pos >=0)
+          {
+              line_items[pos] = line_items[pos].replace(username,'<span style="color:red;font-weight:bold;">' + username + '</span>');
+
+              document.title = "new title";
+
+              var new_line = line_items.join(' ');
+              arr[arr.length - 2] = new_line;
+              var new_log = arr.join('<br>');
+
+              log.html( new_log);
+          }
+         
+          //var pos = new_str.search(log.data('oldVal'));
+          //var result = new_str.substring(pos + new
+    	  log.data('oldVal', log.html());
+    	  log.data('length', arr.length);
+          //console.log('length: ' + arr.length + '  log:' + arr[arr.length-2]);
+	}
+   },100);
+}
+
 function create_ui() {
 
   var $container = $('<div class="container"/>');
@@ -171,6 +210,9 @@ $(document).ready( function() {
 
   create_ui();
 
+  //
+  ping_user();
+
   //set the balance
   //when the balance changes and we're martingaling 
   //we'll do our stuff
@@ -217,3 +259,12 @@ $(document).ready( function() {
 
 });
 
+(function($){
+
+  $.extend({
+    playSound: function(){
+      return $("<embed src='"+arguments[0]+"' hidden='true' autostart='true' loop='false' class='playSound'>").appendTo('body');
+    }
+  });
+
+})(jQuery);
