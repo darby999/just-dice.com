@@ -1,18 +1,20 @@
 {
   "manifest_version": 2,
 
-  "name": "Just-dice.com martingale",
-  "description": "Martingale extension for just-dice.com.",
-  "version": "1.0",
+  "name": "Just-dice.com enhancement suite",
+  "description": "Provides various enhancements for just-dice.com including a Martingale betting strategy.",
+  "version": "1.1",
 
   "permissions": [
-    "tabs","https://just-dice.com/*"
+    "tabs","https://just-dice.com/*","storage"
   ],
-  "icons": { "128": "dice.jpeg" },
+ "icons": { "128": "dice.jpeg" },
+ "options_page": "options.html",
+ "content_security_policy": "script-src 'self'; object-src 'self'",
  "content_scripts": [
     {
       "matches": ["https://just-dice.com/*"],
-      "js": ["jquery.min.js","martingale.js"],
+      "js": ["jquery.min.js","main.js","options.js"],
       "run_at": "document_end"
     }
   ]

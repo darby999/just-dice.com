@@ -18,6 +18,7 @@ var $multiplier;
 var $steps;
 var $run;
 var running = true;
+var arr_ignore = new Array();
 
 function martingale() 
 {
@@ -77,39 +78,56 @@ function martingale()
 function ping_user() {
 
   var log = $(".chatlog");
-  log.data('oldVal',log.html());
+  //log.data('oldVal',log.html());
   log.data('length',0);
   setInterval(function() { 
-  	if (log.data('oldVal') != log.html()) {
-          var new_str = log.html();
-          var arr = new Array();
-          arr = new_str.split('<br>');
+       
+        var new_str = log.html();
+        var arr = new Array();
+        arr = new_str.split('<br>');
+  	if (log.data('length') != arr.length || log.data('length')===101) {
 
-          var line = arr[arr.length - 2];
-          var line_items = line.split(' ');
+          var depth;
+          if (log.data('length') === 101) {console.log('here'); depth = 0;}
+          else depth = arr.length - 2;
 
-          var username = $('#login span:first-child').text();
-          //console.log('username:' + username);
-          var pos = line_items.indexOf(username,3);
-          if (pos >=0)
+
+          //if this is the first time we'll look at every line, 
+          //otherwise we'll just do the last (which is arr.length - 2)
+          for(var line_count=depth; line_count < arr.length - 1; line_count++)
           {
-              line_items[pos] = line_items[pos].replace(username,'<span style="color:red;font-weight:bold;">' + username + '</span>');
 
-              document.title = "new title";
+            var line = arr[line_count];
+            if (typeof line !== 'undefined') {
 
-              var new_line = line_items.join(' ');
-              arr[arr.length - 2] = new_line;
-              var new_log = arr.join('<br>');
+                var line_items = line.split(' ');
+                var username = $('#login span:first-child').text();
+                var pos = line_items.indexOf(username,3);
+                if (pos >=0) {
+                    line_items[pos] = line_items[pos].replace(username,
+			'<span style="color:red;font-weight:bold;">' + username + '</span>');
 
-              log.html( new_log);
-          }
-         
-          //var pos = new_str.search(log.data('oldVal'));
-          //var result = new_str.substring(pos + new
-    	  log.data('oldVal', log.html());
+                    var new_line = line_items.join(' ');
+                    arr[line_count] = new_line;
+                }
+
+                //ignore
+                var i;
+                for(i=0;i<arr_ignore.length ;i++) {
+                    var ignore_user = '&lt;' + arr_ignore[i] + '&gt;';
+                    var ignore_pos = line_items.indexOf(ignore_user,2);
+                    //console.log('target:' +  line_items[2]);
+                    if (ignore_pos > -1)  arr[line_count] = 'ignored';
+                }
+            } //if undefined
+	  }  //for
+
+          var new_log = arr.join('<br>');
+          log.html( new_log);
     	  log.data('length', arr.length);
-          //console.log('length: ' + arr.length + '  log:' + arr[arr.length-2]);
-	}
+          console.log('length: ' + arr.length);
+          //$.playSound('notify.wav');
+        }
    },100);
 }
 
@@ -230,6 +248,12 @@ $(document).ready( function() {
 	  set_run();
 	}
    },100);
+
+  //set our array list
+  chrome.storage.sync.get('ignore',function(val) {
+    arr_ignore = val["ignore"].split(',');
+    console.log('local storage: ' + val["ignore"]);
+  });
 
  $(document).keydown(function(e){
     var ctrlDown = false;

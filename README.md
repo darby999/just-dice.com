@@ -1,9 +1,7 @@
-just-dice.com Martingale
+just-dice.com Enhancement Suite
 ========================
 
-martingale chrome extension for just-dice.com
-
-This is a chrome extension that creates the ability to use the [martingale betting strategy](http://en.wikipedia.org/wiki/Martingale_(betting_system\)) directly from the browser.
+This is a chrome extension that provides various enhancements to just-dice.com. Specifically, creates the ability to use the [martingale betting strategy](http://en.wikipedia.org/wiki/Martingale_(betting_system\)) directly from the browser.
 
 THIS IS ALPHA ALPHA SOFTWARE. PLEASE REVIEW THE CODE AND DO NOT HAVE MORE THAN YOU ARE WILLING TO LOSE AS YOUR BALANCE.
 
@@ -30,6 +28,19 @@ The chrome extension uses the `bet size` to make the initial bet.
 If martingale extension will not allow you to place a bet constructed such that the Multiplier, Steps, and Bet Size would exceed your available balance.
 
 If an input box does not have focus you are able to use the 'r' key to run the martingale strategy.
+
+Chat Notification
+-----------
+The enhancement suite will highlight your username in the chat window when someone types in your name.
+
+Ignore List
+-----------
+The enhancement suite options page provides the ability to add a comma separated list of users you wish to ignore in the chat. To use this options:
+
+1. Type `chrome://extensions/` into the address bar.
+2. Click on the `options` link for the just-dice enhancement suite.
+3. Enter a comma separate list of users to ignore.
+4. Click Save.
 
 Finally
 -------
