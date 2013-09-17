@@ -1,3 +1,5 @@
+/* licenced under http://www.wtfpl.net/ 2013 */
+
 var timer;
 var bal;
 var bet;
