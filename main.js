@@ -10,7 +10,7 @@ var $steps;
 var $run;
 var running = true;
 var arr_ignore = new Array();
-var timer_num = 1100; //Timer delay between bets.
+var timer_num = 1100; //Timer delay between bets 1000 is equal to 1 second.
 
 function martingale() 
 {
