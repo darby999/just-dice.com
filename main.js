@@ -1,14 +1,3 @@
-/***********************************************
- Martingale betting strategy for just-dice.com
- chrome extension
-
- You are free to copy distribute and do whatever you
- like to this software...
-
- if you find it useful tips to 1BZiXP6EoLgm3LjnExVQSSB4c7UbUqRVPf
-************************************************/
-
-
 var timer;
 var bal;
 var bet;
@@ -19,6 +8,7 @@ var $steps;
 var $run;
 var running = true;
 var arr_ignore = new Array();
+var timer_num = 1100; //Timer delay between bets.
 
 function martingale() 
 {
@@ -27,14 +17,39 @@ function martingale()
 
     var curr_bal = bal.val();
 
-    //We have a winner so stop
+    /*We have a winner so stop... NOPE Really we want to replace this so we can continue form the start.
     if (curr_bal > bal.data('oldVal'))
     {
       current_steps = 1;
       $("#pct_bet").val(start_bet);
       running = false;
     }
+    */
+	if (curr_bal > bal.data('oldVal'))
+    {
+        current_steps = 1;
+        $("#pct_bet").val(start_bet);
+	
+            //Increase our bet by the multiplier
+            var new_val = $("#pct_bet").val() * $multiplier.val();
 
+            //get rid of scientific notation
+            if (String(new_val).indexOf('e') !== -1) {
+                var arr = new Array();
+                arr = String(new_val).split('e');
+  		new_val = new_val.toFixed(arr[1].substring(1));
+	        console.log('new_val='  +new_val);
+	    }
+
+            
+            $("#pct_bet").val(new_val);
+
+            //Increase the steps
+            current_steps++;
+            $("#a_hi").trigger('click');
+	}
+    
+	
     else if ($.isNumeric($multiplier.val()) && 
              $.isNumeric($steps.val()) && 
             (current_steps < $steps.val())) {
@@ -67,7 +82,7 @@ function martingale()
 
     // Updated stored value
     bal.data('oldVal', bal.val());
-    timer = setInterval(function() { martingale() },100);
+    timer = setInterval(function() { martingale() },timer_num);
 
   }
 
@@ -78,7 +93,7 @@ function martingale()
 function ping_user() {
 
   var log = $(".chatlog");
-  //log.data('oldVal',log.html());
+  log.data('oldVal',log.html());
   log.data('length',0);
   setInterval(function() { 
        
@@ -137,10 +152,10 @@ function create_ui() {
   var $button_group = $('<div class="button_group"/>');
   $container.append($button_group);
 
-  var $martingale_button = $('<button class="button_label chance_toggle" style="margin-top:20px;">martingale</button>');
+  var $martingale_button = $('<button class="button_label chance_toggle" style="margin-top:20px;">Nixsy</button>');
 
   var $run_div = $('<div class="button_inner_group"/>');
-  $run = $('<button id="c_run" class="play" style="margin-top:18px;">Run<div class="key">R</div></button>');
+  $run = $('<button id="c_run" class="play" style="margin-top:5px;">GO<div class="key">R</div></button>');
 
   $run.click(function() { 
 	running = true; 
@@ -236,7 +251,7 @@ $(document).ready( function() {
   //we'll do our stuff
   bal = $("#pct_balance");
   bal.data('oldVal', bal.val());
-  timer = setInterval(function() { martingale() },100);
+  timer = setInterval(function() { martingale() },timer_num);
 
   //we also monitor the bet b/c it can also determine if 
   //we have enough btc to bet the martingale run
