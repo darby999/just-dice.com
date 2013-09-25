@@ -1,5 +1,3 @@
-/* licenced under http://www.wtfpl.net/ 2013 */
-
 var timer;
 var bal;
 var bet;
@@ -10,7 +8,8 @@ var $steps;
 var $run;
 var running = true;
 var arr_ignore = new Array();
-var timer_num = 1100; //Timer delay between bets 1000 is equal to 1 second.
+var timer_num = 2100; //Timer delay between bets.
+var Strategy;
 
 function martingale() 
 {
@@ -92,6 +91,38 @@ function martingale()
   
 }
 
+function generateseries(){
+    var fno = document.getElementById("firstno").value;
+    var sno = document.getElementById("secondno").value;
+    var a = parseInt(fno);
+    var result = new Array();
+    result[0] = a;
+    var b = ++fno;
+    var c = b;
+    while (b <= sno) {  
+    result.push(c);
+    document.getElementById("maindiv").innerHTML = "Fibonacci Series between "+fno+ " and " +sno+ " is " +result;
+        c = a + b;
+        a = b;
+        b = c;
+    }
+}
+function numeric(evt){
+    var theEvent = evt || window.event;
+    var key = theEvent.keyCode || theEvent.which;
+    key = String.fromCharCode(key);
+    var regex = /[0-9]|\./;
+    if (!regex.test(key)) {
+        theEvent.returnValue = false;
+        if (theEvent.preventDefault) 
+            theEvent.preventDefault();
+    }
+}
+
+function Strategy(){
+
+}
+
 function ping_user() {
 
   var log = $(".chatlog");
@@ -149,15 +180,18 @@ function ping_user() {
 }
 
 function create_ui() {
-
+  
   var $container = $('<div class="container"/>');
   var $button_group = $('<div class="button_group"/>');
   $container.append($button_group);
-
-  var $martingale_button = $('<button class="button_label chance_toggle" style="margin-top:20px;">Nixsy</button>');
+  
+  //var $drop_down = $('<form>Strategy:<select id="myList" onchange="Strategy()"><option></option><option>Martingale</option><option>Fibonacci</option></select></form>');
+  //$container.append($drop_down);
+  
+  var $martingale_button = $('<button class="button_label chance_toggle" style="margin-top:20px;">Nixsy2</button>');
 
   var $run_div = $('<div class="button_inner_group"/>');
-  $run = $('<button id="c_run" class="play" style="margin-top:5px;">GO<div class="key">R</div></button>');
+  $run = $('<button id="c_run" style="margin-top:5px;">Start<div class="key">R</div></button>');
 
   $run.click(function() { 
 	running = true; 
@@ -165,6 +199,12 @@ function create_ui() {
   $("#a_hi").trigger('click');
   });
   $run_div.append($run);
+    
+  $Stop = $('<button id="c_stop" style="margin-top:5px;">Stop<div class="key">Q</div></button>');
+  $Stop.click(function() {
+  running = false;
+  });
+  $run_div.append($Stop);
 
   var $row1 = $('<div class="row"/>');
   var $label1 = $('<p class="llabel">Multiplier</p>');
@@ -176,16 +216,23 @@ function create_ui() {
   $row1.append($x);
 
   var $row2 = $('<div class="row"/>');
-  var $label2 = $('<p class="llabel">Steps</p>');
+  var $label2 = $('<p class="llabel">Max losses</p>');
   $steps = $('<input id="steps"/>');
   $steps.keyup(function() {set_run();});
   $row2.append($label2);
   $row2.append($steps);
-
+  
+/*var $row3 = $('<div class="row"/>');
+  var $label3 = $('<p class="llabel">1000 = 1sec</p>');
+  $delay = $('<input id="delay"/>');
+  $row3.append($label3);
+  $row3.append($delay);
+*/
 
   var $fieldset = $('<fieldset/>');
   $fieldset.append($row1);
   $fieldset.append($row2);
+//$fieldset.append($row3);
 
   $button_group.append($martingale_button);
   $button_group.append($fieldset);
@@ -245,8 +292,9 @@ $(document).ready( function() {
 
   create_ui();
 
-  //
   ping_user();
+  
+  
 
   //set the balance
   //when the balance changes and we're martingaling 
