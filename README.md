@@ -5,8 +5,14 @@ This is a chrome extension that provides various enhancements to just-dice.com. 
 
 THIS IS ALPHA ALPHA SOFTWARE. PLEASE REVIEW THE CODE AND DO NOT HAVE MORE THAN YOU ARE WILLING TO LOSE AS YOUR BALANCE.
 
+------------
+
 looks as of 01/10/2013
 http://i.imgur.com/2v1Zwd3.jpg
+
+Feel free to say hi in Just-Dice =) my id is 98066
+------------
+
 
 Installation
 ------------
