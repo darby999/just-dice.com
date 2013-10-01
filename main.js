@@ -6,10 +6,18 @@ var start_bet = 0;
 var $multiplier;
 var $steps;
 var $run;
-var running = true;
+var running = true; //Start of graph toggle function
+var graphRunning = false;
 var arr_ignore = new Array();
 var timer_num = 2100; //Timer delay between bets.
-var Strategy;
+var graph_running = 1;
+
+// Extra buttons found on pastebin http://pastebin.com/n8X8uRAT not sure who but thanks dude. <div class="key">R</div>
+
+$('.button_inner_group:nth(2)').append(
+      '<button onClick=\'javascript:socket.emit("invest_box", csrf); socket.emit("invest", csrf, "all", $("#invest_code").val());\'>Invest all<div class="key">J</div></button>').append(
+      '<button onClick=\'javascript:socket.emit("invest_box", csrf); socket.emit("divest", csrf, "all", $("#divest_code").val());\'>Divest all<div class="key">K</div></button>');
+
 
 function martingale() 
 {
@@ -18,14 +26,6 @@ function martingale()
 
     var curr_bal = bal.val();
 
-    /*We have a winner so stop... NOPE Really we want to replace this so we can continue form the start.
-    if (curr_bal > bal.data('oldVal'))
-    {
-      current_steps = 1;
-      $("#pct_bet").val(start_bet);
-      running = false;
-    }
-    */
 	if (curr_bal > bal.data('oldVal'))
     {
         current_steps = 1;
@@ -91,37 +91,6 @@ function martingale()
   
 }
 
-function generateseries(){
-    var fno = document.getElementById("firstno").value;
-    var sno = document.getElementById("secondno").value;
-    var a = parseInt(fno);
-    var result = new Array();
-    result[0] = a;
-    var b = ++fno;
-    var c = b;
-    while (b <= sno) {  
-    result.push(c);
-    document.getElementById("maindiv").innerHTML = "Fibonacci Series between "+fno+ " and " +sno+ " is " +result;
-        c = a + b;
-        a = b;
-        b = c;
-    }
-}
-function numeric(evt){
-    var theEvent = evt || window.event;
-    var key = theEvent.keyCode || theEvent.which;
-    key = String.fromCharCode(key);
-    var regex = /[0-9]|\./;
-    if (!regex.test(key)) {
-        theEvent.returnValue = false;
-        if (theEvent.preventDefault) 
-            theEvent.preventDefault();
-    }
-}
-
-function Strategy(){
-
-}
 
 function ping_user() {
 
@@ -180,15 +149,12 @@ function ping_user() {
 }
 
 function create_ui() {
-  
-  var $container = $('<div class="container"/>');
+
+  var $container = $('<div class="container"/>'); 
   var $button_group = $('<div class="button_group"/>');
-  $container.append($button_group);
+  $container.append($button_group); 
   
-  //var $drop_down = $('<form>Strategy:<select id="myList" onchange="Strategy()"><option></option><option>Martingale</option><option>Fibonacci</option></select></form>');
-  //$container.append($drop_down);
-  
-  var $martingale_button = $('<button class="button_label chance_toggle" style="margin-top:20px;">Nixsy2</button>');
+  var $martingale_button = $('<button class="button_label chance_toggle" style="margin-top:20px;">Nixsy5</button>');
 
   var $run_div = $('<div class="button_inner_group"/>');
   $run = $('<button id="c_run" style="margin-top:5px;">Start<div class="key">R</div></button>');
@@ -205,7 +171,7 @@ function create_ui() {
   running = false;
   });
   $run_div.append($Stop);
-
+  
   var $row1 = $('<div class="row"/>');
   var $label1 = $('<p class="llabel">Multiplier</p>');
   $multiplier = $('<input id="multiplier" />');
@@ -219,20 +185,21 @@ function create_ui() {
   var $label2 = $('<p class="llabel">Max losses</p>');
   $steps = $('<input id="steps"/>');
   $steps.keyup(function() {set_run();});
+  var $numz = $('<p class="rlabel">#</p>');
   $row2.append($label2);
   $row2.append($steps);
+  $row2.append($numz);
   
-/*var $row3 = $('<div class="row"/>');
-  var $label3 = $('<p class="llabel">1000 = 1sec</p>');
-  $delay = $('<input id="delay"/>');
+  var $row3 = $('<div class="row"/>');
+  var $label3 = $('<p class="llabel">Graph Update</p>');
+  $delay = $('<input id="updateInterval"/>');
   $row3.append($label3);
   $row3.append($delay);
-*/
+
 
   var $fieldset = $('<fieldset/>');
   $fieldset.append($row1);
   $fieldset.append($row2);
-//$fieldset.append($row3);
 
   $button_group.append($martingale_button);
   $button_group.append($fieldset);
@@ -293,6 +260,8 @@ $(document).ready( function() {
   create_ui();
 
   ping_user();
+  
+  //drawchart();
   
   
 
