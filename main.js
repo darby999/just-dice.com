@@ -10,9 +10,9 @@ var running = true; //Start of graph toggle function
 var graphRunning = false;
 var arr_ignore = new Array();
 var timer_num = 2100; //Timer delay between bets.
-var graph_running = 1;
+var current_bet_num = 0;
 
-// Extra buttons found on pastebin http://pastebin.com/n8X8uRAT not sure who but thanks dude. <div class="key">R</div>
+// Extra buttons found on pastebin http://pastebin.com/n8X8uRAT not sure who but thanks dude.
 
 $('.button_inner_group:nth(2)').append(
       '<button onClick=\'javascript:socket.emit("invest_box", csrf); socket.emit("invest", csrf, "all", $("#invest_code").val());\'>Invest all<div class="key">J</div></button>').append(
@@ -21,6 +21,15 @@ $('.button_inner_group:nth(2)').append(
 
 function martingale() 
 {
+        /* Stats */
+        this.stats = {
+                won: 0,
+                lost: 0,
+                maxStreak: 0,
+                currentProfit: 0,
+                wagered: 0
+        }
+		
   if (bal.data('oldVal') != bal.val() && running) {
     clearInterval(timer);
 
@@ -32,7 +41,7 @@ function martingale()
         $("#pct_bet").val(start_bet);
 	
             //Increase our bet by the multiplier
-            var new_val = $("#pct_bet").val() * $multiplier.val();
+            //var new_val = $("#pct_bet").val() * $multiplier.val(); // Can not test until I put more into JD But I believe this is the error with bets
 
             //get rid of scientific notation
             if (String(new_val).indexOf('e') !== -1) {
@@ -91,6 +100,17 @@ function martingale()
   
 }
 
+// Added Extra tab from Grays Bot. This is currently just a placeholder.
+function tabber() {
+        var markup = '<div class="bot-stats"><div class="statspanel"><h2>Stats</h2><div class="clear"></div><div class="slabel">Bets placed:</div><span id="gbs_bet">0</span><div class="clear"><div class="clear"></div></div></div><div class="clear"></div><div class="bot-graph">Some more stuff incoming!!!</div><div class="bot-foot">';
+                $panelWrapper = $('<div>').attr('id','Nixsy9').css({display: 'none'}).insertAfter('#faq'),
+                $panel = $('<div>').addClass('panel').append(markup).appendTo($panelWrapper),
+				
+				$s_bet = $('#gbs_bet')
+       
+
+        $('<li>').append($('<a>').text('Nix-Tab').attr('href','#Nixsy9')).appendTo('.tabs');
+};
 
 function ping_user() {
 
@@ -254,6 +274,8 @@ function set_run() {
 //The main stuff
 //
 $(document).ready( function() {
+
+  tabber();
 
   console.log('starting');
 
