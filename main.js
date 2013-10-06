@@ -102,7 +102,7 @@ function martingale()
 
 // Added Extra tab from Grays Bot. This is currently just a placeholder.
 function tabber() {
-        var markup = '<div class="bot-stats"><div class="statspanel"><h2>Stats</h2><div class="clear"></div><div class="slabel">Bets placed:</div><span id="gbs_bet">0</span><div class="clear"><div class="clear"></div></div></div><div class="clear"></div><div class="bot-graph">Some more stuff incoming!!!</div><div class="bot-foot">';
+        var markup = '<div class="bot-stats"><div class="statspanel"><h2>Stats</h2><div class="clear"></div><div class="slabel">Bets placed:</div><span id="gbs_bet">0</span><div class="clear"><div class="clear"></div></div></div><div class="clear"></div><div class="bot-graph">No Function here currently!!!</div><div class="bot-foot">';
                 $panelWrapper = $('<div>').attr('id','Nixsy9').css({display: 'none'}).insertAfter('#faq'),
                 $panel = $('<div>').addClass('panel').append(markup).appendTo($panelWrapper),
 				
