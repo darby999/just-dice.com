@@ -12,7 +12,7 @@ var arr_ignore = new Array();
 var timer_num = 2100; //Timer delay between bets.
 var current_bet_num = 0;
 
-// Extra buttons found on pastebin http://pastebin.com/n8X8uRAT not sure who but thanks dude.
+// Extra buttons found on pastebin http://pastebin.com/n8X8uRAT Originally from a user called "v" and edited by another unknown user.
 
 $('.button_inner_group:nth(2)').append(
       '<button onClick=\'javascript:socket.emit("invest_box", csrf); socket.emit("invest", csrf, "all", $("#invest_code").val());\'>invest all<div class="key">J</div></button>').append(
