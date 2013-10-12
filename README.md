@@ -6,14 +6,6 @@ This is a chrome extension that provides various enhancements to just-dice.com. 
 THIS IS ALPHA ALPHA SOFTWARE. PLEASE REVIEW THE CODE AND DO NOT HAVE MORE THAN YOU ARE WILLING TO LOSE AS YOUR BALANCE.
 
 ------------
-
-looks as of 01/10/2013
-http://i.imgur.com/2v1Zwd3.jpg
-
-Feel free to say hi in Just-Dice =) my id is 98066
-------------
-
-
 Installation
 ------------
 
@@ -54,3 +46,16 @@ The enhancement suite options page provides the ability to add a comma separated
 Finally
 -------
 If you make some money feel free to send a little something to 1BZiXP6EoLgm3LjnExVQSSB4c7UbUqRVPf
+
+------------
+Nixsy's Bit
+
+The original martingale script by darby999 is fantastic but will only bet on 1 sequence at a time (through a set amount of losses or to a win)
+I had previously used grays bot before finding this one and liked the idea of starting a bot and it will continue running until you stop it or it busts.
+So the need to change this one was great. I do not claim to be great with javascript and all I have learnt has been from that fantastic teacher google.
+
+looks as of 01/10/2013
+http://i.imgur.com/2v1Zwd3.jpg
+
+Feel free to say hi in Just-Dice =) my id is 98066
+------------
