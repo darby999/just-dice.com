@@ -54,8 +54,8 @@ The original martingale script by darby999 is fantastic but will only bet on 1 s
 I had previously used grays bot before finding this one and liked the idea of starting a bot and it will continue running until you stop it or it busts.
 So the need to change this one was great. I do not claim to be great with javascript and all I have learnt has been from that fantastic teacher google.
 
-looks as of 01/10/2013
-http://i.imgur.com/2v1Zwd3.jpg
+looks as of 25/10/2013
+http://i.imgur.com/h18YJvF.jpg
 
 Feel free to say hi in Just-Dice =) my id is 98066
 ------------
