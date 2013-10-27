@@ -69,7 +69,7 @@ Reset %:
 -
 When reset loss is called this will dictate the value of the bet. It is worked out as (total balance / 100) * reset % so if you set it to 1
 the reset loss value will be 1% of your total balance. Use this with caution and be aware if you add 50% here you will be putting half of 
-your onsite balance into one bet.
+your onsite balance into one bet then it will start to martingale from 50% balance.
 
 -
 
