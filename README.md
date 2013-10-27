@@ -54,8 +54,20 @@ The original martingale script by darby999 is fantastic but will only bet on 1 s
 I had previously used grays bot before finding this one and liked the idea of starting a bot and it will continue running until you stop it or it busts.
 So the need to change this one was great. I do not claim to be great with javascript and all I have learnt has been from that fantastic teacher google.
 
-looks as of 25/10/2013
-http://i.imgur.com/h18YJvF.jpg
+There is now 2 new functions which although may seem a little difficult to understand at first will become easy with a little use.
+
+Reset loss:
+
+This will lower or increase you bet size when a losing streak hits a certain number. 
+
+Reset %:
+
+When reset loss is called this will dictate the value of the bet. It is worked out as (total balance / 100) * reset % so if you set it to 1
+the reset loss value will be 1% of your total balance. Use this with caution and be aware if you add 50% here you will be putting half of 
+your onsite balance into one bet.
+
+looks as of 27/10/2013
+i.imgur.com/BZ426IT.jpg
 
 Feel free to say hi in Just-Dice =) my id is 98066
 ------------
