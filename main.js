@@ -9,8 +9,9 @@ var $run;
 var running = true; //Start of graph toggle function
 var graphRunning = false;
 var arr_ignore = new Array();
-var timer_num = 2100; //Timer delay between bets.
+var timer_num = 900; //Timer delay between bets.
 var current_bet_num = 0;
+//var test_one = ('#pct_balance').val() / 2^($multiplier).val;
 
 // Extra buttons found on pastebin http://pastebin.com/n8X8uRAT Originally from a user called "v" and edited by another unknown user.
 
@@ -36,13 +37,12 @@ function martingale()
     var curr_bal = bal.val();
 
 //Add a step into the martingale to see if we reach our desired loss length, If so reset
-if (current_bet_num == $delay.val())
+if (current_bet_num == $delay.val() && curr_bal < bal.data('oldVal'))
     {
-        current_steps = 1;
         current_bet_num = 1;
         $("#pct_bet").val(start_bet);
         
-            var new_val = $("#pct_bet").val();
+            var new_val = ($('#pct_balance').val() / 100) * ($percentage).val();
 
             //get rid of scientific notation
             if (String(new_val).indexOf('e') !== -1) {
@@ -56,8 +56,9 @@ if (current_bet_num == $delay.val())
             $("#pct_bet").val(new_val);
 
             //Increase the steps
+            current_steps = 1;
             current_steps++;
-            //current_bet_num++;
+            //current_bet_num = 1;
             $("#a_hi").trigger('click');
         }    
 
@@ -169,7 +170,7 @@ function ping_user() {
             if (typeof line !== 'undefined') {
 
                 var line_items = line.split(' ');
-                var username = $('#login span:first-child').text();
+                var username = ("Nix");
                 var pos = line_items.indexOf(username,3);
                 if (pos >=0) {
                     line_items[pos] = line_items[pos].replace(username,
@@ -184,7 +185,7 @@ function ping_user() {
                 for(i=0;i<arr_ignore.length ;i++) {
                     var ignore_user = '&lt;' + arr_ignore[i] + '&gt;';
                     var ignore_pos = line_items.indexOf(ignore_user,2);
-                    //console.log('target:' +  line_items[2]);
+                    console.log('target:' +  line_items[2]);
                     if (ignore_pos > -1)  arr[line_count] = 'ignored';
                 }
             } //if undefined
@@ -194,14 +195,15 @@ function ping_user() {
           log.html( new_log);
               log.data('length', arr.length);
           console.log('length: ' + arr.length);
-          //$.playSound('notify.wav');
+          $.playSound('notify.wav');
         }
    },100);
 }
 
 function create_ui() {
 
-  var $container = $('<div class="container"/>'); 
+  var $container = $('<div class="container"/>');
+  var $container2 = $('<div class="container"/>');
   var $button_group = $('<div class="button_group"/>');
   $container.append($button_group); 
   
@@ -240,21 +242,29 @@ function create_ui() {
   $row2.append($label2);
   $row2.append($steps);
   $row2.append($numz);
-  
-  var $row3 = $('<div class="row"/>');
+ 
+  var $row3 = $('<div class="row"/>'); 
   var $label3 = $('<p class="llabel">Reset loss</p>');
   $delay = $('<input id="updateInterval"/>');
   var $numz2 = $('<p class="rlabel">!</p>');
-  $row3.append($label3);
-  $row3.append($delay);
-  $row3.append($numz2);
+  $row1.append($label3);
+  $row1.append($delay);
+  $row1.append($numz2);
+  
+  
+  var $label4 = $('<p class="llabel">Reset %</p>');
+  $percentage = $('<input id="updateInterval"/>');
+  var $numz3 = $('<p class="rlabel">%</p>');
+  $row2.append($label4);
+  $row2.append($percentage);
+  $row2.append($numz3);
 
   var $fieldset = $('<fieldset/>');
   $fieldset.append($row1);
   $fieldset.append($row2);
   $fieldset.append($row3);
 
-  $button_group.append($martingale_button);
+  //$button_group.append($martingale_button);
   $button_group.append($fieldset);
   $button_group.append($run_div);
 
